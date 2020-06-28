@@ -15,8 +15,8 @@
         // *** Update or verify the following values. ***
         // **********************************************
 
-        let PredictionKey = 'b25c3a86198f4b8b822e6d47d76c9cf1';
-        let endpoint = 'https://rickandmortycv.cognitiveservices.azure.com/customvision/v3.0/Prediction/c01a033d-ea9c-4a61-a4f0-bbf7dd92686a/classify/iterations/RickAndMortyModel/url';
+        let PredictionKey = 'Your PredictionKey';
+        let endpointURL = 'Your endpointURL';
         if (!PredictionKey) { throw new Error('Set your environment variables for your subscription key and endpoint.'); }
         
         // Display the image.
@@ -25,7 +25,7 @@
 
         // Make the REST API call.
         $.ajax({
-            url: endpoint + "?",
+            url: endpointURL + "?",
 
             // Request headers.
             beforeSend: function(xhrObj){
