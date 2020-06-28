@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <!--from https://www.infusedinnovations.com/blog/it-modernization/step-by-step-guide-to-build-train-deploy-ml-models-with-custom-vision-->
+<head>
+    <title>Rick and Morty</title>
+    <link rel="icon" href="https://docs.microsoft.com/learn/achievements/classify-images-with-custom-vision-service-social.png" type="image/icon type">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<script type="text/javascript">
+    function processImage() {
+        // **********************************************
+        // *** Update or verify the following values. ***
+        // **********************************************
+
+        let PredictionKey = 'b25c3a86198f4b8b822e6d47d76c9cf1';
+        let endpoint = 'https://rickandmortycv.cognitiveservices.azure.com/customvision/v3.0/Prediction/c01a033d-ea9c-4a61-a4f0-bbf7dd92686a/classify/iterations/RickAndMortyModel/url';
+        if (!PredictionKey) { throw new Error('Set your environment variables for your subscription key and endpoint.'); }
+        
+        // Display the image.
+        var sourceImageUrl = document.getElementById("inputImage").value;
+        document.querySelector("#sourceImage").src = sourceImageUrl;
+
+        // Make the REST API call.
+        $.ajax({
+            url: endpoint + "?",
+
+            // Request headers.
+            beforeSend: function(xhrObj){
+                xhrObj.setRequestHeader("Content-Type","application/json");
+                xhrObj.setRequestHeader("Prediction-Key", PredictionKey);
+            },
+
+            type: "POST",
+
+            // Request body.
+            data: '{"url": ' + '"' + sourceImageUrl + '"}',
+        })
+
+        .done(function(data) {
+            // Show formatted JSON on webpage.
+            $("#responseTextArea").val(JSON.stringify(data, null, 2));
+        })
+
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            // Display error message.
+            var errorString = (errorThrown === "") ? "Error. " :
+                errorThrown + " (" + jqXHR.status + "): ";
+            errorString += (jqXHR.responseText === "") ? "" :
+                jQuery.parseJSON(jqXHR.responseText).message;
+            alert(errorString);
+        });
+    };
+</script>
+<h1>Rick and Morty Image Classification</h1>
+<h1>Web App Using Custom Vision</h1>
+
+<div class="row">
+    <div class="column">
+        <h1>How to use</h1>
+        <h2>1. Enter the Image URL</h2>
+        <h2>2. Click the Classify Image button</h2>
+        <h2>3. Wait for result</h2>
+    </div>
+    <div class="column">
+        <h1>How to dev</h1>
+        <h2>1. Download Dataset from this <a href="https://www.w3schools.com/">link</a></h2>
+        <h2>2. Train model in <a href="https://www.customvision.ai/projects">Custom Vision</a></h2>
+        <h2>3. Deploy model follow <a href="https://www.infusedinnovations.com/blog/it-modernization/step-by-step-guide-to-build-train-deploy-ml-models-with-custom-vision">this link</a></h2>
+    </div>
+</div>
+<br><br>
+<br><br>
+
+<center>
+    <div>
+<h4>Image URL:</h4>
+<input type="text" name="inputImage" id="inputImage"
+    value="Enter Your URL here" />
+<br><br>
+<h4>Click this button to Classify Image</h4>
+<button onclick="processImage()">Classify Image</button>
+</div>
+<br><br>
+<div id="wrapper" style="width:1020px; display:table;">
+    <div id="jsonOutput" style="width:600px; display:table-cell;">
+        <h4>Result:</h4>
+        <textarea id="responseTextArea" class="UIInput"
+                  style="width:580px; height:400px;"></textarea>
+    </div>
+    <div id="imageDiv" style="width:420px; display:table-cell;">
+        <h4>Image:</h4>
+        <br><br>
+        <img id="sourceImage" width="400" />
+    </div>
+</div>
+</center>
+</body>
+</html>

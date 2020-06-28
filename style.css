@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+  }
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+  }
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+h1{
+    font-family: 'Get Schwifty';
+    font-size: 75px;
+    color: rgb(20,175,200);
+    text-align: center;
+}
+
+h2{
+    font-family: 'Product Sans'; font-style: normal;
+    font-size: 25px;
+    position: relative;
+    left: 50px;
+}
+
+h3{
+    font-family: 'Product Sans';
+}
+
+h4{
+  font-family: 'Get Schwifty'; font-style: normal;
+  font-size: 30px;
+  color: rgb(20,175,200);
+  position: relative;
+}
