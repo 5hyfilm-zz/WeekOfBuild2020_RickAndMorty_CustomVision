@@ -1,2 +1,2 @@
-# RickAndMorty_CusomVision
+# RickAndMorty_CustomVision
  
